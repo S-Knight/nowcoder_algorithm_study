@@ -1,5 +1,6 @@
 package com.igeekspace;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -67,7 +68,8 @@ public class Main {
             }
 
             int iSortFlag = scanner.nextInt();
-            bubbleSort(pIntegerArray, iSortFlag);
+            Arrays.sort(pIntegerArray);
+            printArray(pIntegerArray, iSortFlag);
         }
     }
 }
