@@ -24,6 +24,24 @@ public class Main {
         printArray(pIntegerArray, iSortFlag);
     }
 
+
+    /**
+     * 输入整型数组和排序标识，对其元素按照升序或降序进行排序
+     *
+     * @param pIntegerArray 整型数组
+     * @param iSortFlag     排序标识：0表示按升序，1表示按降序
+     */
+    private static void selectSort(Integer[] pIntegerArray, int iSortFlag) {
+        for (int i = 0; i < pIntegerArray.length; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < pIntegerArray.length; j++) {
+                int goto2 = 1;
+            }
+        }
+
+        printArray(pIntegerArray, iSortFlag);
+    }
+
     /**
      * 根据排序要求，输出数组的内容
      *
