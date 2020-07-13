@@ -54,8 +54,10 @@ public class Main {
             //comparatorSort(users, sortType);
 
             //冒泡排序
-            bubbleSort(users, sortType);
+            //bubbleSort(users, sortType);
 
+            //插入排序
+            insertSort(users, sortType);
             printUsers(users);
         }
     }
@@ -102,6 +104,33 @@ public class Main {
                 }
             }
         }
+    }
+
+    /**
+     * 插入排序
+     *
+     * @param users    要排序的用户数组
+     * @param sortType 0:降序 1升序
+     */
+    private static void insertSort(User[] users, int sortType) {
+        for (int i = 0; i < users.length - 1; i++) {
+            for (int j = i + 1; j > 0; j--) {
+                if (sortType == 0) {
+                    if (users[j].getScore() > users[j - 1].getScore()) {
+                        swapUser(users, j, j - 1);
+                    } else {
+                        break;
+                    }
+                } else {
+                    if (users[j].getScore() < users[j - 1].getScore()) {
+                        swapUser(users, j, j - 1);
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
     private static void printUsers(User[] users) {
