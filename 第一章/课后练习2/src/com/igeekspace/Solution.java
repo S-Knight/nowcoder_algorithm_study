@@ -1,24 +1,22 @@
 package com.igeekspace;
 
 public class Solution {
-    private boolean binSearch(int target, int[] array) {
-        int left = 0;
-        int right = array.length - 1;
+    private boolean binSearch(int target, int[][] array, int leftI, int leftJ, int rightI, int rightJ) {
+        if (leftI > rightI || leftJ > rightJ) {
+            return false;
+        }
 
-        while (true) {
-            int middle = (left + right) / 2;
+        int middleI = (leftI + rightI) / 2;
+        int middleJ = (leftJ + rightJ) / 2;
 
-            if (target == array[middle]) {
-                return true;
-            } else if (target < array[middle]) {
-                right = middle - 1;
-            } else {
-                left = middle + 1;
-            }
-
-            if (left > right) {
-                return false;
-            }
+        if (target == array[middleI][middleJ]) {
+            return true;
+        } else if (target > array[middleI][middleJ]) {
+            return binSearch(target, array, leftI, middleJ + 1, middleI, rightJ)
+                    || binSearch(target, array, middleI + 1, leftJ, rightI, rightJ);
+        } else {
+            return binSearch(target, array, leftI, leftJ, rightI, middleJ - 1)
+                    || binSearch(target, array, leftI, middleJ, middleI - 1, rightJ);
         }
     }
 
@@ -27,16 +25,6 @@ public class Solution {
             return false;
         }
 
-        for (int i = 0; i < array.length; i++) {
-            if (target >= array[i][0]) {
-                if (binSearch(target, array[i])) {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        }
-
-        return false;
+        return binSearch(target, array, 0, 0, array.length - 1, array[0].length - 1);
     }
 }
