@@ -57,7 +57,10 @@ public class Main {
             //bubbleSort(users, sortType);
 
             //插入排序
-            insertSort(users, sortType);
+            //insertSort(users, sortType);
+
+            //归并排序
+            mergeSort(users, sortType, 0, users.length - 1);
             printUsers(users);
         }
     }
@@ -131,6 +134,55 @@ public class Main {
             }
         }
 
+    }
+
+    private static void mergeSort(User[] users, int sortType, int left, int right) {
+        if (left == right) {
+            return;
+        }
+
+        int middle = (left + right) / 2;
+
+        mergeSort(users, sortType, left, middle);
+        mergeSort(users, sortType, middle + 1, right);
+
+        User[] tempUsers = new User[right - left + 1];
+
+        for (int i = left, j = middle + 1, k = 0; i <= middle || j <= right; ) {
+            if (i > middle) {
+                tempUsers[k++] = users[j];
+                j++;
+                continue;
+            }
+
+            if (j > right) {
+                tempUsers[k++] = users[i];
+                i++;
+                continue;
+            }
+
+            if (sortType == 0) {
+                if (users[i].getScore() >= users[j].getScore()) {
+                    tempUsers[k++] = users[i];
+                    i++;
+                } else {
+                    tempUsers[k++] = users[j];
+                    j++;
+                }
+            } else {
+                if (users[i].getScore() <= users[j].getScore()) {
+                    tempUsers[k++] = users[i];
+                    i++;
+                } else {
+                    tempUsers[k++] = users[j];
+                    j++;
+                }
+            }
+        }
+
+        for (int i = 0; i < tempUsers.length; i++) {
+            users[i + left] = tempUsers[i];
+        }
     }
 
     private static void printUsers(User[] users) {
