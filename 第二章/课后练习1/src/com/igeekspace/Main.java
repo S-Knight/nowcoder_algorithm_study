@@ -12,6 +12,10 @@ public class Main {
      * @param j             要交换的元素索引j
      */
     private static void swapArrayElement(Integer[] pIntegerArray, int i, int j) {
+        if (i == j) {
+            return;
+        }
+
         Integer temp = pIntegerArray[j];
         pIntegerArray[j] = pIntegerArray[i];
         pIntegerArray[i] = temp;
@@ -193,14 +197,18 @@ public class Main {
 
         int num = pIntegerArray[right];
 
-        int i = left;
+        int i = left - 1;
         int j = right;
+        int current = left;
 
-        while (i < j) {
-            if (pIntegerArray[i] <= num) {
-                i++;
+        while (current < j) {
+            if (pIntegerArray[current] < num) {
+                swapArrayElement(pIntegerArray, current, ++i);
+                current++;
+            } else if (pIntegerArray[current] == num) {
+                current++;
             } else {
-                swapArrayElement(pIntegerArray, i, --j);
+                swapArrayElement(pIntegerArray, current, --j);
             }
         }
 
