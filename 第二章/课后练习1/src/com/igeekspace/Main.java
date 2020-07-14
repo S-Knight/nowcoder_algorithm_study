@@ -74,7 +74,7 @@ public class Main {
      * @param pIntegerArray 整型数组
      */
     private static void mergeSort(Integer[] pIntegerArray, int left, int right) {
-        if (left == right) {
+        if (left >= right) {
             return;
         }
 
@@ -181,6 +181,36 @@ public class Main {
     }
 
     /**
+     * 快速排序
+     * 对元素按照升序进行排序
+     *
+     * @param pIntegerArray 整型数组
+     */
+    private static void quickSort(Integer[] pIntegerArray, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int num = pIntegerArray[right];
+
+        int i = left;
+        int j = right;
+
+        while (i < j) {
+            if (pIntegerArray[i] <= num) {
+                i++;
+            } else {
+                swapArrayElement(pIntegerArray, i, --j);
+            }
+        }
+
+        swapArrayElement(pIntegerArray, j, right);
+
+        quickSort(pIntegerArray, left, j - 1);
+        quickSort(pIntegerArray, j + 1, right);
+    }
+
+    /**
      * 根据排序要求，输出数组的内容
      *
      * @param pIntegerArray 整型数组
@@ -240,7 +270,11 @@ public class Main {
             //归并排序
             //mergeSort(pIntegerArray, 0, pIntegerArray.length - 1);
 
-            heapSort(pIntegerArray);
+            //堆排序
+            //heapSort(pIntegerArray);
+
+            //快速排序
+            quickSort(pIntegerArray, 0, pIntegerArray.length - 1);
             printArray(pIntegerArray, iSortFlag);
         }
     }
