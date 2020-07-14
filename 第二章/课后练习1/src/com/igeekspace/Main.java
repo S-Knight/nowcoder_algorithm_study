@@ -33,7 +33,6 @@ public class Main {
         }
     }
 
-
     /**
      * 选择排序
      * 对元素按照升序进行排序
@@ -65,6 +64,119 @@ public class Main {
                     swapArrayElement(pIntegerArray, j, j - 1);
                 }
             }
+        }
+    }
+
+    /**
+     * 归并排序
+     * 对元素按照升序进行排序
+     *
+     * @param pIntegerArray 整型数组
+     */
+    private static void mergeSort(Integer[] pIntegerArray, int left, int right) {
+        if (left == right) {
+            return;
+        }
+
+        int middle = left + (right - left >> 1);
+
+        mergeSort(pIntegerArray, left, middle);
+        mergeSort(pIntegerArray, middle + 1, right);
+
+        merge(pIntegerArray, left, middle, right);
+    }
+
+    /**
+     * 合并归并排序的左右两个数组
+     *
+     * @param pIntegerArray 整型数组
+     * @param left          左数组开头索引
+     * @param middle        left和right的平均值，为了减少计算量直接传进去
+     * @param right         右数组的结尾索引
+     */
+    private static void merge(Integer[] pIntegerArray, int left, int middle, int right) {
+        int i = left;
+        int j = middle + 1;
+        int k = 0;
+        Integer[] help = new Integer[right - left + 1];
+
+        while (i <= middle && j <= right) {
+            help[k++] = pIntegerArray[i] <= pIntegerArray[j] ? pIntegerArray[i++] : pIntegerArray[j++];
+        }
+
+        while (i <= middle) {
+            help[k++] = pIntegerArray[i++];
+        }
+
+        while (j <= right) {
+            help[k++] = pIntegerArray[j++];
+        }
+
+        for (i = 0; i < help.length; i++) {
+            pIntegerArray[left + i] = help[i];
+        }
+    }
+
+    /**
+     * 堆排序
+     * 对元素按照升序进行排序
+     *
+     * @param pIntegerArray 整型数组
+     */
+    private static void heapSort(Integer[] pIntegerArray) {
+        if (pIntegerArray.length < 2) {
+            return;
+        }
+
+        //初始化大根堆
+        initBigHeap(pIntegerArray);
+        int size = pIntegerArray.length;
+
+        while (size > 0) {
+            swapArrayElement(pIntegerArray, 0, --size);
+            bigHeapify(pIntegerArray, size, 0);
+        }
+    }
+
+    /**
+     * 将数组初始化为大根堆
+     *
+     * @param pIntegerArray 整型数组
+     */
+    private static void initBigHeap(Integer[] pIntegerArray) {
+        for (int i = 1; i < pIntegerArray.length; i++) {
+            int curIndex = i;
+            int parentIndex = (curIndex - 1) / 2;
+
+            while (pIntegerArray[curIndex] > pIntegerArray[parentIndex]) {
+                swapArrayElement(pIntegerArray, curIndex, parentIndex);
+                curIndex = parentIndex;
+                parentIndex = (curIndex - 1) / 2;
+            }
+        }
+    }
+
+    /**
+     * 将顶点为top，长度为size的数组部分调整为大根堆状态
+     *
+     * @param pIntegerArray 整型数组
+     * @param size          大根堆的元素个数
+     * @param top           顶点索引
+     */
+    private static void bigHeapify(Integer[] pIntegerArray, int size, int top) {
+        int leftChildIndex = (top << 1) + 1;
+        if (leftChildIndex >= size) {
+            return;
+        }
+
+        int rightChildIndex = leftChildIndex + 1;
+
+        int largestIndex = rightChildIndex < size && pIntegerArray[rightChildIndex] > pIntegerArray[leftChildIndex]
+                ? rightChildIndex : leftChildIndex;
+
+        if (pIntegerArray[top] < pIntegerArray[largestIndex]) {
+            swapArrayElement(pIntegerArray, top, largestIndex);
+            bigHeapify(pIntegerArray, size, largestIndex);
         }
     }
 
@@ -123,7 +235,12 @@ public class Main {
             //selectSort(pIntegerArray);
 
             //插入排序
-            insertSort(pIntegerArray);
+            //insertSort(pIntegerArray);
+
+            //归并排序
+            //mergeSort(pIntegerArray, 0, pIntegerArray.length - 1);
+
+            heapSort(pIntegerArray);
             printArray(pIntegerArray, iSortFlag);
         }
     }
