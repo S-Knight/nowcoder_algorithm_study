@@ -195,6 +195,8 @@ public class Main {
             return;
         }
 
+        int rand = (int) (Math.random() * (right - left + 1));
+        swapArrayElement(pIntegerArray, left + rand, right);
         int num = pIntegerArray[right];
 
         int i = left - 1;
