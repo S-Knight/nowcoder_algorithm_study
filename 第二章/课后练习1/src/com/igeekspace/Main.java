@@ -5,41 +5,67 @@ import java.util.Scanner;
 
 public class Main {
     /**
-     * 输入整型数组和排序标识，对其元素按照升序或降序进行排序
+     * 交换数组中两个位置的值
+     *
+     * @param pIntegerArray 要操作的数组
+     * @param i             要交换的元素索引i
+     * @param j             要交换的元素索引j
+     */
+    private static void swapArrayElement(Integer[] pIntegerArray, int i, int j) {
+        Integer temp = pIntegerArray[j];
+        pIntegerArray[j] = pIntegerArray[i];
+        pIntegerArray[i] = temp;
+    }
+
+    /**
+     * 冒泡排序
+     * 对元素按照升序进行排序
      *
      * @param pIntegerArray 整型数组
-     * @param iSortFlag     排序标识：0表示按升序，1表示按降序
      */
-    private static void bubbleSort(Integer[] pIntegerArray, int iSortFlag) {
+    private static void bubbleSort(Integer[] pIntegerArray) {
         for (int i = 0; i < pIntegerArray.length; i++) {
             for (int j = 1; j < pIntegerArray.length - i; j++) {
                 if (pIntegerArray[j - 1] > pIntegerArray[j]) {
-                    Integer temp = pIntegerArray[j];
-                    pIntegerArray[j] = pIntegerArray[j - 1];
-                    pIntegerArray[j - 1] = temp;
+                    swapArrayElement(pIntegerArray, j, j - 1);
                 }
             }
         }
-
-        printArray(pIntegerArray, iSortFlag);
     }
 
 
     /**
-     * 输入整型数组和排序标识，对其元素按照升序或降序进行排序
+     * 选择排序
+     * 对元素按照升序进行排序
      *
      * @param pIntegerArray 整型数组
-     * @param iSortFlag     排序标识：0表示按升序，1表示按降序
      */
-    private static void selectSort(Integer[] pIntegerArray, int iSortFlag) {
+    private static void selectSort(Integer[] pIntegerArray) {
         for (int i = 0; i < pIntegerArray.length; i++) {
             int minIndex = i;
             for (int j = i + 1; j < pIntegerArray.length; j++) {
-                int goto2 = 1;
+                if (pIntegerArray[j] < pIntegerArray[minIndex])
+                    minIndex = j;
+            }
+
+            swapArrayElement(pIntegerArray, i, minIndex);
+        }
+    }
+
+    /**
+     * 插入排序
+     * 对元素按照升序进行排序
+     *
+     * @param pIntegerArray 整型数组
+     */
+    private static void insertSort(Integer[] pIntegerArray) {
+        for (int i = 0; i < pIntegerArray.length - 1; i++) {
+            for (int j = i + 1; j > 0; j--) {
+                if (pIntegerArray[j] < pIntegerArray[j - 1]) {
+                    swapArrayElement(pIntegerArray, j, j - 1);
+                }
             }
         }
-
-        printArray(pIntegerArray, iSortFlag);
     }
 
     /**
@@ -86,7 +112,18 @@ public class Main {
             }
 
             int iSortFlag = scanner.nextInt();
-            Arrays.sort(pIntegerArray);
+
+            //Util库的sort排序
+            //Arrays.sort(pIntegerArray);
+
+            //冒泡排序
+            //bubbleSort(pIntegerArray);
+
+            //选择排序
+            //selectSort(pIntegerArray);
+
+            //插入排序
+            insertSort(pIntegerArray);
             printArray(pIntegerArray, iSortFlag);
         }
     }
