@@ -1,19 +1,20 @@
 package com.igeekspace;
 
 public class Solution {
-    private int[] fibNums;
-
-    public Solution() {
-        fibNums = new int[40];
-        fibNums[0] = 0;
-        fibNums[1] = 1;
-
-        for (int i = 2; i < 40; i++) {
-            fibNums[i] = fibNums[i - 2] + fibNums[i - 1];
-        }
-    }
-
     public int Fibonacci(int n) {
-        return fibNums[n];
+        int[] previous = new int[]{0, 1};
+
+        if (n < 2) {
+            return previous[n];
+        }
+
+        int previousI = 0;
+        for (int i = 2; i <= n; i++) {
+            previousI = previous[0] + previous[1];
+            previous[0] = previous[1];
+            previous[1] = previousI;
+        }
+
+        return previous[1];
     }
 }
