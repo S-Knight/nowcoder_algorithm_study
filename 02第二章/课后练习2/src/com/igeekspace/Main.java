@@ -1,5 +1,7 @@
 package com.igeekspace;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -97,6 +99,30 @@ public class Main {
         return -1;
     }
 
+    private static void bucketSort(char[] chars) {
+        HashMap<Character, ArrayList<Character>> bucket = new HashMap<>();
+        for (char i = 'a'; i <= 'z'; i++) {
+            bucket.put(i, new ArrayList<Character>());
+        }
+
+        for (int i = 0; i < chars.length; i++) {
+            //非英文字母的其它字符保持原来的位置。
+            if (!Character.isLetter(chars[i])) {
+                continue;
+            }
+
+            bucket.get(Character.toLowerCase(chars[i])).add(chars[i]);
+        }
+
+        int j = -1;
+        for (char i = 'a'; i <= 'z'; i++) {
+            for (Character c : bucket.get(i)) {
+                j = findNextLetter(chars, j + 1);
+                chars[j] = c;
+            }
+        }
+    }
+
     private static void printChars(char[] chars) {
         for (int i = 0; i < chars.length; i++) {
             System.out.print(chars[i]);
@@ -118,7 +144,10 @@ public class Main {
             //insertSort(charArray);
 
             //冒泡排序
-            bubbleSort(charArray);
+            //bubbleSort(charArray);
+
+            //桶排序
+            bucketSort(charArray);
 
             printChars(charArray);
         }
