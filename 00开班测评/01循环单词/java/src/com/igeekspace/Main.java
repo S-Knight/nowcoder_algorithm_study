@@ -36,11 +36,12 @@ public class Main {
             n = scanner.nextInt();
 
             HashSet<String> strings = new HashSet<>();
-            //所有输入字符串能
+            //所有输入字符串能衍变成的循环字符串
             HashSet<String> allCycleStrings = new HashSet<>();
 
             for (int i = 0; i < n; i++) {
                 String string = scanner.next();
+                //如果已有循环字符串库中搜不到记录，说明是新字符串
                 if (!allCycleStrings.contains(string)) {
                     strings.add(string);
 
