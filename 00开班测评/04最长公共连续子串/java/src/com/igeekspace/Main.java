@@ -18,11 +18,7 @@ public class Main {
 
         int largestCommonLength = 0;
         for (int i = 0; i < string1.length(); i++) {
-            for (int j = i + 1; j <= string1.length(); j++) {
-                if (j - i <= largestCommonLength) {
-                    continue;
-                }
-
+            for (int j = i + largestCommonLength + 1; j <= string1.length(); j++) {
                 String substring = string1.substring(i, j);
 
                 if (string2.contains(substring)) {
