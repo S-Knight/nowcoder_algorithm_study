@@ -43,14 +43,14 @@ public class Main {
                 String string = scanner.next();
                 if (!allCycleStrings.contains(string)) {
                     strings.add(string);
-                }
 
-                allCycleStrings.add(string);
+                    allCycleStrings.add(string);
 
-                String[] cycleStrings = getCycleStrings(string);
+                    String[] cycleStrings = getCycleStrings(string);
 
-                if (cycleStrings != null) {
-                    allCycleStrings.addAll(Arrays.asList(cycleStrings));
+                    if (cycleStrings != null) {
+                        allCycleStrings.addAll(Arrays.asList(cycleStrings));
+                    }
                 }
             }
 
