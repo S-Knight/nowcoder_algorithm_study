@@ -1,7 +1,7 @@
 package com.igeekspace;
 
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -36,36 +36,24 @@ public class Main {
             n = scanner.nextInt();
 
             HashSet<String> strings = new HashSet<>();
-            HashSet<String> processedStrings = new HashSet<>();
+            //所有输入字符串能
+            HashSet<String> allCycleStrings = new HashSet<>();
 
             for (int i = 0; i < n; i++) {
-                strings.add(scanner.next());
-            }
-
-            Iterator<String> it = strings.iterator();
-            while (it.hasNext()) {
-                String string = it.next();
-                if (processedStrings.contains(string)) {
-                    continue;
+                String string = scanner.next();
+                if (!allCycleStrings.contains(string)) {
+                    strings.add(string);
                 }
+
+                allCycleStrings.add(string);
 
                 String[] cycleStrings = getCycleStrings(string);
 
                 if (cycleStrings != null) {
-                    boolean removeSuccess = false;
-                    for (String cycleString : cycleStrings) {
-                        if (strings.remove(cycleString)) {
-                            removeSuccess = true;
-                        }
-                    }
-
-                    if (removeSuccess) {
-                        it = strings.iterator();
-                    }
+                    allCycleStrings.addAll(Arrays.asList(cycleStrings));
                 }
-
-                processedStrings.add(string);
             }
+
 
             System.out.println(strings.size());
 
