@@ -37,34 +37,6 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        while (scanner.hasNext()) {
-            int userCount = scanner.nextInt();
-            byte sortType = scanner.nextByte();
-
-            User[] users = new User[userCount];
-            for (int i = 0; i < userCount; i++) {
-                User user = new User(scanner.next(), scanner.nextInt());
-                users[i] = user;
-            }
-
-            //比较器排序
-            //comparatorSort(users, sortType);
-
-            //冒泡排序
-            //bubbleSort(users, sortType);
-
-            //插入排序
-            //insertSort(users, sortType);
-
-            //归并排序
-            mergeSort(users, sortType, 0, users.length - 1);
-            printUsers(users);
-        }
-    }
-
     /**
      * 使用比较器排序
      *
@@ -93,18 +65,25 @@ public class Main {
      */
     private static void bubbleSort(User[] users, int sortType) {
         for (int i = 0; i < users.length - 1; i++) {
+            boolean isSorted = true;
             if (sortType == 0) {//降序
                 for (int j = users.length - 1; j > i; j--) {
                     if (users[j].getScore() > users[j - 1].getScore()) {
                         swapUser(users, j, j - 1);
+                        isSorted = false;//如果没有任何数发生过swap，则说明该段数组已经有序
                     }
                 }
             } else {
                 for (int j = 1; j < users.length - i; j++) {
                     if (users[j - 1].getScore() > users[j].getScore()) {
                         swapUser(users, j, j - 1);
+                        isSorted = false;
                     }
                 }
+            }
+
+            if (isSorted) {
+                break;
             }
         }
     }
@@ -188,6 +167,34 @@ public class Main {
     private static void printUsers(User[] users) {
         for (User user : users) {
             System.out.println(user.getName() + " " + user.getScore());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (scanner.hasNext()) {
+            int userCount = scanner.nextInt();
+            byte sortType = scanner.nextByte();
+
+            User[] users = new User[userCount];
+            for (int i = 0; i < userCount; i++) {
+                User user = new User(scanner.next(), scanner.nextInt());
+                users[i] = user;
+            }
+
+            //比较器排序
+            //comparatorSort(users, sortType);
+
+            //冒泡排序
+            bubbleSort(users, sortType);
+
+            //插入排序
+            //insertSort(users, sortType);
+
+            //归并排序
+            //mergeSort(users, sortType, 0, users.length - 1);
+            printUsers(users);
         }
     }
 }
