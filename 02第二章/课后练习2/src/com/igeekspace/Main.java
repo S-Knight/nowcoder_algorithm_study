@@ -100,25 +100,21 @@ public class Main {
     }
 
     private static void bucketSort(char[] chars) {
-        HashMap<Character, ArrayList<Character>> bucket = new HashMap<>();
+        ArrayList<Character> letters = new ArrayList<>();
+
         for (char i = 'a'; i <= 'z'; i++) {
-            bucket.put(i, new ArrayList<Character>());
+            for (int j = 0; j < chars.length; j++) {
+                if (chars[j] == i || chars[j] == Character.toUpperCase(i)) {
+                    letters.add(chars[j]);
+                }
+            }
         }
 
+        int j = 0;
         for (int i = 0; i < chars.length; i++) {
             //非英文字母的其它字符保持原来的位置。
-            if (!Character.isLetter(chars[i])) {
-                continue;
-            }
-
-            bucket.get(Character.toLowerCase(chars[i])).add(chars[i]);
-        }
-
-        int j = -1;
-        for (char i = 'a'; i <= 'z'; i++) {
-            for (Character c : bucket.get(i)) {
-                j = findNextLetter(chars, j + 1);
-                chars[j] = c;
+            if (Character.isLetter(chars[i])) {
+                chars[i] = letters.get(j++);
             }
         }
     }
