@@ -1,11 +1,11 @@
 package com.igeekspace;
 
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-    static class User {
+    static class User implements Comparable {
         private String name;
         private int score;
 
@@ -21,19 +21,10 @@ public class Main {
         public int getScore() {
             return score;
         }
-    }
 
-    static class ScoreAscendingComparator implements Comparator<User> {
         @Override
-        public int compare(User o1, User o2) {
-            return o1.score - o2.score;
-        }
-    }
-
-    static class ScoreDescendingComparator implements Comparator<User> {
-        @Override
-        public int compare(User o1, User o2) {
-            return o2.score - o1.score;
+        public int compareTo(Object o) {
+            return this.score - ((User) o).score;
         }
     }
 
@@ -43,11 +34,11 @@ public class Main {
      * @param users    要排序的用户数组
      * @param sortType 0:降序 1升序
      */
-    private static void comparatorSort(User[] users, int sortType) {
+    private static void comparableSort(User[] users, int sortType) {
         if (sortType == 0) {//降序
-            Arrays.sort(users, new ScoreDescendingComparator());
+            Arrays.sort(users, Collections.reverseOrder());
         } else {
-            Arrays.sort(users, new ScoreAscendingComparator());
+            Arrays.sort(users);
         }
     }
 
@@ -184,10 +175,10 @@ public class Main {
             }
 
             //比较器排序
-            //comparatorSort(users, sortType);
+            comparableSort(users, sortType);
 
             //冒泡排序
-            bubbleSort(users, sortType);
+            //bubbleSort(users, sortType);
 
             //插入排序
             //insertSort(users, sortType);
