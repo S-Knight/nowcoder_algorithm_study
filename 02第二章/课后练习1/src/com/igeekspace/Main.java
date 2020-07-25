@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+    private static final boolean debug = false;
+
     /**
      * 交换数组中两个位置的值
      *
@@ -66,6 +68,24 @@ public class Main {
             for (int j = i + 1; j > 0; j--) {
                 if (pIntegerArray[j] < pIntegerArray[j - 1]) {
                     swapArrayElement(pIntegerArray, j, j - 1);
+                }
+            }
+        }
+    }
+
+    /**
+     * 希尔排序
+     * 对元素按照升序进行排序
+     *
+     * @param pIntegerArray 整型数组
+     */
+    private static void shellSort(Integer[] pIntegerArray) {
+        for (int gap = pIntegerArray.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < pIntegerArray.length; i++) {
+                for (int j = i - gap; j >= 0; j -= gap) {
+                    while (pIntegerArray[j + gap] < pIntegerArray[j]) {
+                        swapArrayElement(pIntegerArray, j + gap, j);
+                    }
                 }
             }
         }
@@ -277,6 +297,9 @@ public class Main {
             //插入排序
             //insertSort(pIntegerArray);
 
+            //希尔排序
+            shellSort(pIntegerArray);
+
             //归并排序
             //mergeSort(pIntegerArray, 0, pIntegerArray.length - 1);
 
@@ -284,7 +307,8 @@ public class Main {
             //heapSort(pIntegerArray);
 
             //快速排序
-            quickSort(pIntegerArray, 0, pIntegerArray.length - 1);
+            //quickSort(pIntegerArray, 0, pIntegerArray.length - 1);
+
             printArray(pIntegerArray, iSortFlag);
         }
     }
